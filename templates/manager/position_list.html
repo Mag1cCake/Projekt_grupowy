@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Positions</title>
+{% endblock %}
+
+{% block content %}
+  <h1>All Positions:</h1>
+    {% if position_list %}
+      {% for position in position_list %}
+      	<ul>
+          <li><a href="#">{{ position.name }}</a></li>
+        </ul>
+      {% endfor %}
+
+    {% else %}
+      <p>There are no positions in the service.</p>
+    {% endif %}
+{% endblock %}

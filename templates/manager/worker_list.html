@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Workers</title>
+{%  endblock %}
+
+{% block content %}
+  <h1>All workers:</h1>
+  {% if worker_list %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Position</th>
+          <th>Email</th>
+          <th>Full name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for worker in worker_list %}
+          <tr> <td><a href="#">{{ worker.username }}</a></td>
+            <td>{{ worker.position }}</td>
+            <td>{{ worker.email }}</td>
+            <td>{{ worker.first_name }} {{ worker.last_name }}</td>
+          </tr> {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>There are no workers in the service.</p>
+  {% endif %}
+{% endblock %}
