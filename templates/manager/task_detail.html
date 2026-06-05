@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Task: {{ task.name }}</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Task: {{ task.name }}</h1>
+
+  <table class="table table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th>Deadline</th>
+        <th>Completed</th>
+        <th>Priority</th>
+        <th>Task Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ task.deadline|date:"d M Y H:i" }}</td>
+        <td>{{ task.is_completed|yesno:"Yes,No" }}</td>
+        <td><span class="badge badge-secondary">{{ task.get_priority_display }}</span></td>
+        <td>{{ task.task_type.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card mt-3">
+    <div class="card-header">Description</div>
+    <div class="card-body">
+      <p class="card-text">{{ task.description }}</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <h3>Assigned Workers:</h3>
+  {% if task.assignees.all %}  <ul class="list-group">
+      {% for worker in task.assignees.all %}
+        <li class="list-group-item">
+          <a href="{% url 'manager:worker-detail' pk=worker.id %}">
+            {{ worker.first_name }} {{ worker.last_name }} ({{ worker.username }})
+          </a>
+          <span class="text-muted small"> — {{ worker.position }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">This task currently has no assigned workers.</p>
+  {% endif %}
+  <a class="btn btn-warning btn-sm" href="{% url 'manager:task-update' pk=task.id %}">
+  Update
+</a>
+  <a class="btn btn-danger btn-sm" href="{% url 'manager:task-delete' pk=task.id %}">Delete</a>
+{% endblock %}

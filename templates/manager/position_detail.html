@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Position: {{ position.name }}</title>
+{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Position: {{ position.name }}</h1>
+    <a href="{% url 'manager:position-list' %}" class="btn btn-outline-secondary btn-sm">
+      Back to positions
+    </a>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">General Information</h5>
+      <p class="card-text">
+        <strong>Total workers on this position:</strong> {{ position.workers.count }}
+      </p>
+    </div>
+  </div>
+
+  <hr>
+
+  <h3>Workers with this position:</h3>
+  {% if position.workers.all %}
+    <div class="list-group">
+      {% for worker in position.workers.all %}
+        <a href="{% url 'manager:worker-detail' pk=worker.id %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{ worker.first_name }} {{ worker.last_name }}</strong>
+            <span class="text-muted ml-2">(@{{ worker.username }})</span>
+          </div>
+          <span class="badge badge-info">View Profile</span>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-warning">
+      No workers currently assigned to this position.
+    </div>
+  {% endif %}
+  <a class="btn btn-warning btn-sm" href="{% url 'manager:position-update' pk=position.id %}">
+    Update
+  </a>
+  <a class="btn btn-danger btn-sm" href="{% url 'manager:position-delete' pk=position.id %}">Delete</a>
+{% endblock %}

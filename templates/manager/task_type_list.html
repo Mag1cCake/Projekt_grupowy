@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block content %}
-  <h1>All Tasks types:</h1>
+  <h1>All Tasks types: <a class="btn btn-outline-primary" href="{% url 'manager:task-type-create' %}">+</a></h1>
     {% if task_type_list %}
       {% for task_type in task_type_list %}
       	<ul>
-          <li><a href="#">{{ task_type.name }}</a></li>
+          <li><a href="{% url 'manager:task-type-detail' pk=task_type.id %}">{{ task_type.name }}</a></li>
         </ul>
       {% endfor %}
     {% else %}

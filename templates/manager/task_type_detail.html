@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Type: {{ task_type.name }}</title>
+{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Task Type: {{ task_type.name }}</h1>
+    <a href="{% url 'manager:task-type-list' %}" class="btn btn-outline-secondary btn-sm">
+      Back to types
+    </a>
+  </div>
+
+  <hr>
+
+  <h3>Tasks with this type:</h3>
+{% if task_type.tasks.all %}
+  <ul>
+    {% for task in task_type.tasks.all %}
+      <li>
+        <a href="{% url 'manager:task-detail' pk=task.id %}">{{ task.name }}</a>
+        (Priority: {{ task.priority }})
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No tasks assigned to this type yet.</p>
+{% endif %}
+  <a class="btn btn-warning btn-sm" href="{% url 'manager:task-type-update' pk=task_type.id %}">
+  Update
+  </a>
+  <a class="btn btn-danger btn-sm" href="{% url 'manager:task-type-delete' pk=task_type.id %}">Delete</a>
+{% endblock %}

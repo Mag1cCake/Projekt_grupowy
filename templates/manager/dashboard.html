@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-light mb-4">Dashboard</h1>
+
+  <p class="text-muted">General statistics of the IT Task Manager orbit.</p>
+
+  <div class="row mt-5">
+    <div class="col-md-6">
+      <a href="{% url 'manager:task-list' %}">
+        <div class="glass-stat-card text-center p-4">
+          <i class="fas fa-tasks fa-3x text-primary mb-3"></i>
+          <h2 class="display-4 fw-bold text-light">{{ num_tasks }}</h2>
+          <p class="text-muted text-uppercase mb-0">Total Tasks</p>
+      </div>
+      </a>
+    </div>
+    <div class="col-md-6">
+      <a href="{% url 'manager:worker-list' %}">
+        <div class="glass-stat-card text-center p-4">
+          <i class="fas fa-users fa-3x text-info mb-3"></i>
+          <h2 class="display-4 fw-bold text-light">{{ num_workers }}</h2>
+          <p class="text-muted text-uppercase mb-0">Total Workers</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  {% endblock %}

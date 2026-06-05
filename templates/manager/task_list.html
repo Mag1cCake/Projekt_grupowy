@@ -5,7 +5,7 @@
 {%  endblock %}
 
 {% block content %}
-  <h1>All Tasks:</h1>
+  <h1>All Tasks: <a class="btn btn-outline-primary" href="{% url 'manager:task-create' %}">+</a></h1>
   {% if task_list %}
     <table class="table">
       <thead>
@@ -18,7 +18,7 @@
       </thead>
       <tbody>
         {% for task in task_list %}
-          <tr> <td><a href="#">{{ task.name }}</a></td>
+          <tr> <td><a href="{% url 'manager:task-detail' pk=task.id %}">{{ task.name }}</a></td>
             <td>{{ task.priority }}</td>
             <td>{{ task.deadline }}</td>
             <td>{{ task.task_type }}</td>
